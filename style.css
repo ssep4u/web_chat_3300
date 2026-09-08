@@ -1,0 +1,246 @@
+:root {
+    color-scheme: dark;
+    --bg: #090d18;
+    --panel: rgba(17, 24, 39, 0.82);
+    --panel-strong: #111827;
+    --line: rgba(148, 163, 184, 0.16);
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --accent: #8b5cf6;
+    --accent-bright: #a78bfa;
+    --bubble: #1e293b;
+    font-family: Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: clamp(1rem, 4vw, 3rem);
+    overflow: hidden;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 15% 0%, rgba(124, 58, 237, 0.23), transparent 34rem),
+        radial-gradient(circle at 100% 100%, rgba(14, 165, 233, 0.12), transparent 30rem),
+        var(--bg);
+}
+
+#app {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    width: min(100%, 960px);
+    height: min(900px, calc(100vh - clamp(2rem, 8vw, 6rem)));
+    min-height: 520px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1.75rem;
+    background: rgba(15, 23, 42, 0.76);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+    backdrop-filter: blur(24px);
+}
+
+#app::after {
+    position: absolute;
+    top: -12rem;
+    right: -8rem;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(139, 92, 246, 0.08);
+    filter: blur(30px);
+    content: "";
+}
+
+header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 88px;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+    background: rgba(15, 23, 42, 0.62);
+    backdrop-filter: blur(18px);
+}
+
+header::before {
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 0 5px rgba(52, 211, 153, 0.12), 0 0 18px rgba(52, 211, 153, 0.75);
+    content: "";
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 750;
+    letter-spacing: -0.03em;
+}
+
+header h1::after {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    content: "Live room · Online";
+}
+
+#messages {
+    width: 100%;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 2rem clamp(1.25rem, 6vw, 4rem) 1.5rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+
+#messages:empty::before {
+    display: block;
+    padding-top: 20vh;
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-align: center;
+    content: "대화를 시작해 보세요";
+}
+
+#messages li {
+    width: fit-content;
+    max-width: min(75%, 560px);
+    margin: 0 0 0.75rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 1.15rem 1.15rem 1.15rem 0.35rem;
+    color: #e2e8f0;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+    background: var(--bubble);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    animation: message-in 0.25s ease-out both;
+}
+
+#messages li.mine,
+#messages li.me,
+#messages li.sent,
+#messages li.user {
+    margin-left: auto;
+    border-color: rgba(167, 139, 250, 0.28);
+    border-radius: 1.15rem 1.15rem 0.35rem 1.15rem;
+    color: white;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+}
+
+#messages li.system {
+    width: 100%;
+    max-width: none;
+    margin: 1rem 0;
+    padding: 0.4rem;
+    border: 0;
+    color: var(--muted);
+    font-size: 0.78rem;
+    text-align: center;
+    background: transparent;
+    box-shadow: none;
+}
+
+#chat-form {
+    position: relative;
+    display: flex;
+    gap: 0.7rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem clamp(1.25rem, 6vw, 4rem) 1.5rem;
+}
+
+#chat-form::before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 5rem;
+    z-index: -1;
+    background: linear-gradient(transparent, var(--bg) 55%);
+    content: "";
+}
+
+#chat-input {
+    min-width: 0;
+    flex: 1;
+    padding: 0.95rem 1.15rem;
+    border: 1px solid var(--line);
+    border-radius: 0.95rem;
+    outline: none;
+    color: var(--text);
+    font: inherit;
+    background: var(--panel);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+#chat-input::placeholder {
+    color: #64748b;
+}
+
+#chat-input:focus {
+    border-color: var(--accent-bright);
+    background: rgba(30, 41, 59, 0.9);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.14), 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+#chat-form button {
+    flex: 0 0 auto;
+    min-width: 5.2rem;
+    padding: 0.85rem 1.1rem;
+    border: 0;
+    border-radius: 0.95rem;
+    color: white;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent-bright), #6366f1);
+    box-shadow: 0 10px 24px rgba(99, 102, 241, 0.28);
+    transition: transform 0.2s, filter 0.2s;
+}
+
+#chat-form button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+#chat-form button:active {
+    transform: translateY(0);
+}
+
+@keyframes message-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    body { padding: 0; }
+    #app { width: 100%; height: 100vh; min-height: 0; border: 0; border-radius: 0; }
+    header { min-height: 68px; }
+    #messages { padding-top: 1.25rem; }
+    #messages li { max-width: 86%; }
+    #chat-form button { min-width: 3.5rem; padding-inline: 0.8rem; }
+}
+
+/* Fallback copy for the empty state. */
+#messages:empty::before {
+    content: "Start a conversation";
+}
