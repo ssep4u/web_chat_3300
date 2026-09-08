@@ -34,6 +34,7 @@ const server = http.createServer((req, res) => {
     }
 
     const filePath = path.resolve(ROOT, `.${requestedPath === '/' ? '/index.html' : requestedPath}`);
+
     if (filePath !== ROOT && !filePath.startsWith(`${ROOT}${path.sep}`)) {
         res.writeHead(403);
         return res.end('Forbidden');
