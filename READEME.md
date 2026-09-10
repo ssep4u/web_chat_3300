@@ -24,3 +24,5 @@
      - ul
    - style.css
    - client.js
+     - addEventListener("submit", (event) => {})
+     - addMessage()
