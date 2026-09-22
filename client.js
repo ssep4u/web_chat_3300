@@ -15,6 +15,7 @@ chatForm.addEventListener("submit", (event) => {
 
   if (!message) return; //메시지 빈칸이면 return
 
+  ws.send(message); //서버로 message 날리자
   addMessage(message);
 
   chatInput.value = "";

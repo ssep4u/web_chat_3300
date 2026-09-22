@@ -69,6 +69,10 @@ const wss = new WebSocketServer({ server });
 wss.on("connection", (ws) => {
     console.log("클라이언트 연결");
 
+    //client 에서 send 한 것을 받는 위치
+    ws.on("message", (data) => {
+        console.log(data.toString());
+    });
     ws.on("close", () => {
         console.log("클라이언트 연결 해제")
     });
