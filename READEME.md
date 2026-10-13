@@ -31,10 +31,10 @@
       - WebSocketServer, WebSocket
       - server.js
         - wss.on("connection", (ws) => {});
-          - ws.on("message", (data) => {});
+          - ws.on("message", (data) => {}); //string -> json
           - ws.on("close", () => {});
       - client.js
         - chatForm.addEventListener("submit", ...)
-          - ws.send(text);
+          - ws.send({ type: "message", text }); //json -> string
         - ws.onopen = () => {};
         - ws.onclose = () => {};
