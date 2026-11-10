@@ -2,9 +2,9 @@ const chatForm = document.querySelector("#chat-form");
 const chatInput = document.querySelector("#chat-input");
 const messages = document.querySelector("#messages");
 
-function addMessage(message) {
+function addMessage(senderNickname, message) {
   const li = document.createElement("li");
-  li.textContent = message;
+  li.textContent = senderNickname + ": "+ message;
   messages.appendChild(li);
 }
 
@@ -25,10 +25,12 @@ chatForm.addEventListener("submit", (event) => {
 
 //---------------Welcome WebSocket World-----------------
 const ws = new WebSocket(`ws://${location.host}`);
+const nickname = prompt("당신의 닉네임을 입력하세요.").trim() || "익명";
 
 // ws.on("open", () => {});
 ws.onopen = () => {
   console.log("서버 연결");
+  ws.send(JSON.stringify({type: "join", text: nickname}));  //server에 nickname 보내기
 };
 ws.onmessage = (event) => {
   //string -> json
@@ -40,7 +42,8 @@ ws.onmessage = (event) => {
     case "chat":
       //console.log(json.text);
       //화면에 json.text 를 보여주자
-      addMessage(json.text);
+      console.log(json.nickname);
+      addMessage(json.nickname, json.text);
       break;
   }
 };
