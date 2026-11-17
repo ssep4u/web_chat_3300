@@ -133,6 +133,10 @@ header h1::after {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     animation: message-in 0.25s ease-out both;
 }
+#messages li .nickname {
+    color: #3b7ffc;
+    font-size: 0.8rem;
+}
 
 #messages li.mine,
 #messages li.me,

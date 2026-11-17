@@ -1,11 +1,32 @@
 const chatForm = document.querySelector("#chat-form");
 const chatInput = document.querySelector("#chat-input");
 const messages = document.querySelector("#messages");
+chatInput.focus();
 
 function addMessage(senderNickname, message) {
-  const li = document.createElement("li");
-  li.textContent = senderNickname + ": "+ message;
-  messages.appendChild(li);
+  const li = document.createElement("li");  //<li></li>
+  if (senderNickname !== nickname) {
+    //nickname
+    //<li><div class="nickname">닉네임</div></li>
+    //<div> 태그 만들자
+    const nicknameDiv = document.createElement("div");
+    //class="nickname" 추가하자
+    nicknameDiv.classList.add("nickname");
+    //textContent=nickname 넣자
+    nicknameDiv.textContent = senderNickname;
+    //<li>의 자식으로 붙이자
+    li.appendChild(nicknameDiv);
+  } else {  //내 메시지이면 오른쪽에 표시하자
+    li.classList.add("mine");
+  }
+
+  //message
+  li.appendChild(document.createTextNode(message));  //<li><div class="nickname">닉네임</div>메시지</li>
+
+  //시간 <span class="time">시간</span> -> <li> 자식으로 붙이자
+
+  messages.appendChild(li); //<ul id="messages"><li><div class="nickname">닉네임</div>메시지</li></ul>
+  messages.append()
 }
 
 chatForm.addEventListener("submit", (event) => {
